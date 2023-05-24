@@ -1,21 +1,17 @@
-name: Automated API Tests
+name: Automated API tests using Postman CLI
 
-on: [push, pull_request]
+on: push
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
+  automated-api-tests:
+    runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v2
-      with:
-        node-version: '14'
-
-    - name: Install Apifox CLI
-      run: npm install -g apifox-cli
-
-    - name: Running Test Scenario
-      run: apifox run http://192.168.10.208:5694/api/v1/projects/345082/api-test/ci-config/345112/detail?token=xoIRCaSlGl58UXyeyU_jIZ -r html,cli
+      - uses: actions/checkout@v3
+      - name: Install Postman CLI
+        run: |
+          powershell.exe -NoProfile -InputFormat None -ExecutionPolicy AllSigned -Command "[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://dl-cli.pstmn.io/install/win64.ps1'))"
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
+        run: |
+          postman collection run "5086889-004fbc90-1912-4376-b146-6d9e9ec04b13" -e "5086889-22c88ab9-1534-4a17-91d1-763995fea9e8"
