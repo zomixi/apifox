@@ -20,4 +20,4 @@ jobs:
 
     - name: Running Test Scenario
       run: |
-        apifox run http://192.168.10.208:5664/api/v1/projects/345088/api-test/ci-config/345111/detail?token=xTlYA_zGVc3In8BHIlelf2 -r html,cli
+        apifox run https://api.apifox.cn/api/v1/projects/2688121/api-test/ci-config/363969/detail?token=x4gs3A7yI1ltYYyOGyY1y8 -r html,cli
